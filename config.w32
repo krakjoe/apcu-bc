@@ -1,0 +1,11 @@
+// $Id$
+// vim:ft=javascript
+
+ARG_ENABLE("apc", "enable APCu BC support", "no");
+
+if (PHP_APC != "no") {
+        EXTENSION("apc", "php_apc.c", PHP_APC_SHARED, "/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1");
+        ADD_EXTENSION_DEP("apc", "apcu", true);
+}
+
+
