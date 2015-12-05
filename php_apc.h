@@ -22,6 +22,19 @@
 #define PHP_APC_VERSION "5.1.2dev"
 #define PHP_APC_EXTNAME "apc"
 
+/*
+ * This module defines utilities and helper functions used elsewhere in APC.
+ */
+#ifdef PHP_WIN32
+# define PHP_APCU_API __declspec(dllexport)
+#elif defined(__GNUC__) && __GNUC__ >= 4
+# define PHP_APCU_API __attribute__ ((visibility("default")))
+#else
+# define PHP_APCU_API
+#endif
+
+PHP_APCU_API zend_class_entry* apc_iterator_ce;
+
 extern zend_module_entry apc_module_entry;
 #define apc_module_ptr &apc_module_entry
 
