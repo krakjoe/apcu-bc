@@ -19,7 +19,7 @@
 #ifndef PHP_APC_H
 #define PHP_APC_H
 
-#define PHP_APC_VERSION "5.1.2dev"
+#define PHP_APC_VERSION "0.0.0"
 #define PHP_APC_EXTNAME "apc"
 
 extern zend_module_entry apc_module_entry;
