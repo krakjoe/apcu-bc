@@ -1,4 +1,4 @@
 APCu Backwards Compatibility Module
 ===============================
 
-This module is dependant on APCu and provides a backwards compatible API for APC.
+This module provides a backwards APC compatible API using [APCu](https://github.com/krakjoe/apcu).
