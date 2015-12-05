@@ -166,7 +166,7 @@ static int apc_bc_iterator_init(int module_number) {
     zend_class_entry ce;
 
     INIT_CLASS_ENTRY(ce, "APCIterator", apc_iterator_functions);
-    apc_bc_iterator_ce = zend_register_internal_class_ex(&ce, apc_iterator_ce);
+    apc_bc_iterator_ce = zend_register_internal_class_ex(&ce, apc_iterator_get_ce());
 
     return SUCCESS;
 }
@@ -175,7 +175,7 @@ static int apc_bc_iterator_init(int module_number) {
 /* {{{ PHP_MINIT_FUNCTION(apc) */
 static PHP_MINIT_FUNCTION(apc)
 {
-	if (apc_iterator_ce) {
+	if (apc_iterator_get_ce()) {
 		apc_bc_iterator_init(module_number);
 	}
 	return SUCCESS;
