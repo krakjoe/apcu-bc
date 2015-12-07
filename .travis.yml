@@ -1,0 +1,20 @@
+language: php
+php:
+  - 7.0
+  - nightly
+
+before_script:
+  - git clone https://github.com/krakjoe/apcu
+  - cd apcu
+  - phpize
+  - ./configure
+  - make
+  - sudo make install
+  - cd ../
+
+script:
+  - phpize
+  - ./configure
+  - make
+  - sudo make install
+  - REPORT_EXIT_STATUS=1 php -n run-tests.php -q -n -dextension=apcu.so -dextension=apc.so -d apc.enable=1 -d apc.enable_cli=1 -p `phpenv which php` --show-diff --set-timeout 120
