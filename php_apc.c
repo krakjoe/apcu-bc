@@ -50,8 +50,8 @@ PHP_FUNCTION(apc_clear_cache);
 static PHP_MINFO_FUNCTION(apc)
 {
     php_info_print_table_start();
-    php_info_print_table_header(2, "APC Compatibility:", apc_is_enabled() ? "Enabled" : "Disabled");
-    php_info_print_table_row(2, "Version", PHP_APCU_VERSION);
+    php_info_print_table_row(2, "APC Compatibility", PHP_APC_VERSION);
+    php_info_print_table_row(2, "APCu Version", PHP_APCU_VERSION);
     php_info_print_table_row(2, "Build Date", __DATE__ " " __TIME__);
     php_info_print_table_end();
 }
