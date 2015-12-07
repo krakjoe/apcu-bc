@@ -52,8 +52,14 @@
     <min>7.0.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.10</min>
    </pearinstaller>
+   <package>
+    <name>apcu</name>
+    <channel>pecl.php.net</channel>
+    <min>5.1.2</min>
+    <providesextension>apcu</providesextension>
+   </package>
   </required>
  </dependencies>
  <providesextension>apc</providesextension>
