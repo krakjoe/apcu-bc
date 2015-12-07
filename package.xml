@@ -42,9 +42,8 @@
    <file name="config.w32" role="src" />
    <file name="php_apc.h" role="src" />
    <file name="php_apc.c" role="src" />
-   <file name="README.md" role="src" />
-   <file name="LICENSE" role="src" />
-   <file name="package.xml" role="src" />
+   <file name="README.md" role="doc" />
+   <file name="LICENSE" role="doc" />
   </dir>
  </contents>
  <dependencies>
