@@ -1,0 +1,23 @@
+{
+    "name": "apcu_bc",
+    "version": "1.0.1-beta",
+    "type": "extension",
+    "license": [
+        "PHP License"
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "ext-apcu": "~5.1"
+    },
+    "authors": [
+        {
+            "name": "Joe Watkins",
+            "email": "krakjoe@php.net"
+        },
+        {
+            "name": "Remi Collet",
+            "email": "remi@php.net"
+        }
+    ],
+    "description": "APCu Backwards Compatibility Module"
+}
