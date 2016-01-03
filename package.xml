@@ -28,14 +28,17 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-- fix gh#10 - apc_clear_cache parameter is optional
+- fix gh#10 - apc_clear_cache: parameter is optional
+- apc_cache_info: both parameters are optional
  </notes>
  <contents>
   <dir name="/">
    <dir name="tests">
-    <file name="apc_001.phpt" role="test" />
+	<file name="apc_001.phpt" role="test" />
 	<file name="iterator_005_bc.phpt" role="test" />
 	<file name="iterator_008_bc.phpt" role="test" />
+	<file name="apc_cache_info.phpt" role="test" />
+	<file name="apc_clear_cache.phpt" role="test" />
 	<file name="skipif.inc" role="test" />
    </dir>
    <file name="config.m4" role="src" />
