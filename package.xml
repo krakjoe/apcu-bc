@@ -19,7 +19,7 @@
  <date>2015-12-07</date>
  <time>08:00:00</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.1dev</release>
   <api>5.1</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-- initial release
+- fix gh#10 - apc_clear_cache parameter is optional
  </notes>
  <contents>
   <dir name="/">

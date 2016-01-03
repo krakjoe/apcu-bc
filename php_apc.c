@@ -41,6 +41,17 @@
 zend_class_entry *apc_bc_iterator_ce;
 zend_object_handlers apc_bc_iterator_handlers;
 
+/* {{{ arginfo */
+ZEND_BEGIN_ARG_INFO_EX(arginfo_apcu_bc_cache_info, 0, 0, 1)
+    ZEND_ARG_INFO(0, ignored)
+    ZEND_ARG_INFO(0, limited)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_apcu_bc_clear_cache, 0, 0, 0)
+    ZEND_ARG_INFO(0, ignored)
+ZEND_END_ARG_INFO()
+/* }}} */
+
 /* {{{ PHP_FUNCTION declarations */
 PHP_FUNCTION(apc_cache_info);
 PHP_FUNCTION(apc_clear_cache);
@@ -72,17 +83,20 @@ static PHP_RINIT_FUNCTION(apc)
 
 /* {{{ proto void apc_clear_cache(string cache) */
 PHP_FUNCTION(apc_clear_cache) { 
-	zend_string *ignored;
+	zend_string *name = NULL;
 	zval proxy;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &ignored) != SUCCESS) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "|S", &name) != SUCCESS) {
 		return;
 	}
 	
-	ZVAL_STR(&proxy, 
-		zend_string_init(ZEND_STRL("apcu_clear_cache"), 0));
-	call_user_function(EG(function_table), NULL, &proxy, return_value, 0, NULL);
-	zval_ptr_dtor(&proxy);
+	if (name && !strcasecmp(ZSTR_VAL(name), "user")) {
+		ZVAL_STR(&proxy,
+			zend_string_init(ZEND_STRL("apcu_clear_cache"), 0));
+		call_user_function(EG(function_table), NULL, &proxy, return_value, 0, NULL);
+		zval_ptr_dtor(&proxy);
+	}
+	RETURN_TRUE;
 }
 /* }}} */
 
@@ -106,8 +120,8 @@ PHP_FUNCTION(apc_cache_info) {
 
 /* {{{ apc_functions[] */
 zend_function_entry apc_functions[] = {
-	PHP_FE(apc_cache_info,         arginfo_apc_cache_info)
-	PHP_FE(apc_clear_cache,        arginfo_apc_clear_cache)
+	PHP_FE(apc_cache_info,         arginfo_apcu_bc_cache_info)
+	PHP_FE(apc_clear_cache,        arginfo_apcu_bc_clear_cache)
 	PHP_FALIAS(apc_store,    apcu_store,    arginfo_apcu_store)
 	PHP_FALIAS(apc_fetch,    apcu_fetch,    arginfo_apcu_fetch)
 	PHP_FALIAS(apc_enabled,  apcu_enabled,  arginfo_apcu_enabled)
