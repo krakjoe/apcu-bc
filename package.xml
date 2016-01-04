@@ -16,10 +16,10 @@
   <email>remi@php.net</email>
   <active>yes</active>
  </developer>
- <date>2015-12-07</date>
+ <date>2016-01-04</date>
  <time>08:00:00</time>
  <version>
-  <release>1.0.1dev</release>
+  <release>1.0.1</release>
   <api>5.1</api>
  </version>
  <stability>
@@ -35,10 +35,10 @@
   <dir name="/">
    <dir name="tests">
 	<file name="apc_001.phpt" role="test" />
-	<file name="iterator_005_bc.phpt" role="test" />
-	<file name="iterator_008_bc.phpt" role="test" />
 	<file name="apc_cache_info.phpt" role="test" />
 	<file name="apc_clear_cache.phpt" role="test" />
+	<file name="iterator_005_bc.phpt" role="test" />
+	<file name="iterator_008_bc.phpt" role="test" />
 	<file name="skipif.inc" role="test" />
    </dir>
    <file name="config.m4" role="src" />
@@ -67,4 +67,21 @@
  </dependencies>
  <providesextension>apc</providesextension>
  <extsrcrelease />
+  <changelog>
+   <release>
+    <date>2015-12-07</date>
+    <version>
+     <release>1.0.0</release>
+     <api>5.1</api>
+    </version>
+    <stability>
+     <release>beta</release>
+     <api>stable</api>
+    </stability>
+    <license uri="http://www.php.net/license">PHP License</license>
+    <notes>
+- initial release
+    </notes>
+  </release>
+ </changelog>
 </package>
