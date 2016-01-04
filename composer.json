@@ -1,6 +1,5 @@
 {
     "name": "apcu_bc",
-    "version": "1.0.1-beta",
     "type": "extension",
     "license": [
         "PHP License"
