@@ -10,12 +10,12 @@
   <email>krakjoe@php.net</email>
   <active>yes</active>
  </lead>
- <developer>
+ <lead>
   <name>Remi Collet</name>
   <user>remi</user>
   <email>remi@php.net</email>
   <active>yes</active>
- </developer>
+ </lead>
  <date>2016-01-06</date>
  <time>09:00:00</time>
  <version>
