@@ -27,6 +27,7 @@
 #include "zend_hash.h"
 #include "zend_extensions.h"
 #include "zend_interfaces.h"
+#include "SAPI.h"
 
 #include "php_apc.h"
 #include "ext/standard/info.h"
@@ -119,6 +120,69 @@ PHP_FUNCTION(apc_cache_info) {
 }
 /* }}} */
 
+/* {{{ proto long apc_inc(string key [, long step [, bool& success]])
+ */
+PHP_FUNCTION(apc_inc) {
+	zend_string *key;
+	zend_long step = 1;
+	zval proxy, params[3], *success = NULL;
+	time_t t;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S|lz", &key, &step, &success) == FAILURE) {
+		return;
+	}
+
+	t = apc_time();
+	if (!apc_cache_exists(apc_user_cache, key, t)) {
+		if (success) {
+			ZVAL_DEREF(success);
+			zval_ptr_dtor(success);
+			ZVAL_FALSE(success);
+		}
+		RETURN_FALSE;
+        }
+	ZVAL_STR(&proxy, zend_string_init(ZEND_STRL("apcu_inc"), 0));
+	ZVAL_STR(&params[0], key);
+	ZVAL_LONG(&params[1], step);
+	if (success) {
+		ZVAL_COPY_VALUE(&params[2], success);
+	}
+	call_user_function(EG(function_table), NULL, &proxy, return_value, (success ? 3 : 2), params);
+}
+/* }}} */
+
+/* {{{ proto long apc_dec(string key [, long step [, bool &success]])
+ */
+PHP_FUNCTION(apc_dec) {
+	zend_string *key;
+	zend_long step = 1;
+	zval proxy, params[3], *success = NULL;
+	time_t t;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S|lz", &key, &step, &success) == FAILURE) {
+		return;
+	}
+
+	t = apc_time();
+	if (!apc_cache_exists(apc_user_cache, key, t)) {
+		if (success) {
+			ZVAL_DEREF(success);
+			zval_ptr_dtor(success);
+			ZVAL_FALSE(success);
+		}
+		RETURN_FALSE;
+        }
+	ZVAL_STR(&proxy, zend_string_init(ZEND_STRL("apcu_dec"), 0));
+	ZVAL_STR(&params[0], key);
+	ZVAL_LONG(&params[1], step);
+	if (success) {
+		ZVAL_COPY_VALUE(&params[2], success);
+	}
+	call_user_function(EG(function_table), NULL, &proxy, return_value, (success ? 3 : 2), params);
+}
+/* }}} */
+
+
 /* {{{ apc_functions[] */
 zend_function_entry apc_functions[] = {
 	PHP_FE(apc_cache_info,         arginfo_apcu_bc_cache_info)
@@ -129,8 +193,8 @@ zend_function_entry apc_functions[] = {
 	PHP_FALIAS(apc_delete,   apcu_delete,   arginfo_apcu_delete)
 	PHP_FALIAS(apc_add,      apcu_add,      arginfo_apcu_store)
 	PHP_FALIAS(apc_sma_info, apcu_sma_info, arginfo_apcu_sma_info)
-	PHP_FALIAS(apc_inc,      apcu_inc,      arginfo_apcu_inc)
-	PHP_FALIAS(apc_dec,      apcu_dec,      arginfo_apcu_inc)
+	PHP_FE(apc_inc,                         arginfo_apcu_inc)
+	PHP_FE(apc_dec,                         arginfo_apcu_inc)
 	PHP_FALIAS(apc_cas,      apcu_cas,      arginfo_apcu_cas)
 	PHP_FALIAS(apc_exists,   apcu_exists,   arginfo_apcu_exists)
 	PHP_FE_END

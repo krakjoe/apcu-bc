@@ -36,6 +36,7 @@
 	<file name="apc_001.phpt" role="test" />
 	<file name="apc_cache_info.phpt" role="test" />
 	<file name="apc_clear_cache.phpt" role="test" />
+	<file name="apc_incdec.phpt" role="test" />
 	<file name="iterator_005_bc.phpt" role="test" />
 	<file name="iterator_008_bc.phpt" role="test" />
 	<file name="skipif.inc" role="test" />
