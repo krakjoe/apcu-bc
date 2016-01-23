@@ -19,7 +19,7 @@
  <date>2016-01-06</date>
  <time>09:00:00</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2dev</release>
   <api>5.1</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-- fix gh#10 - apc_clear_cache: parameter is optional
-- apc_cache_info: both parameters are optional
-- add dep on APCu extension
+-
  </notes>
  <contents>
   <dir name="/">
@@ -83,6 +81,23 @@
     <notes>
 - initial release
     </notes>
+  </release>
+  <release>
+   <date>2016-01-06</date>
+   <version>
+    <release>1.0.1</release>
+    <api>5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fix gh#10 - apc_clear_cache: parameter is optional
+- apc_cache_info: both parameters are optional
+- add dep on APCu extension
+   </notes>
   </release>
  </changelog>
 </package>
