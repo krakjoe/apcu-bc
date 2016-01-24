@@ -120,9 +120,8 @@ PHP_FUNCTION(apc_cache_info) {
 }
 /* }}} */
 
-/* {{{ proto long apc_inc(string key [, long step [, bool& success]])
- */
-PHP_FUNCTION(apc_inc) {
+static void php_apcu_bc_inc_dec(INTERNAL_FUNCTION_PARAMETERS, zend_string *funcname) /* {{{ */
+{
 	zend_string *key;
 	zend_long step = 1;
 	zval proxy, params[3], *success = NULL;
@@ -141,47 +140,29 @@ PHP_FUNCTION(apc_inc) {
 		}
 		RETURN_FALSE;
         }
-	ZVAL_STR(&proxy, zend_string_init(ZEND_STRL("apcu_inc"), 0));
+	ZVAL_STR(&proxy, funcname);
 	ZVAL_STR(&params[0], key);
 	ZVAL_LONG(&params[1], step);
 	if (success) {
 		ZVAL_COPY_VALUE(&params[2], success);
 	}
 	call_user_function(EG(function_table), NULL, &proxy, return_value, (success ? 3 : 2), params);
+}
+/* }}} */
+
+/* {{{ proto long apc_inc(string key [, long step [, bool& success]])
+ */
+PHP_FUNCTION(apc_inc) {
+	php_apcu_bc_inc_dec(INTERNAL_FUNCTION_PARAM_PASSTHRU, zend_string_init(ZEND_STRL("apcu_inc"), 0));
 }
 /* }}} */
 
 /* {{{ proto long apc_dec(string key [, long step [, bool &success]])
  */
 PHP_FUNCTION(apc_dec) {
-	zend_string *key;
-	zend_long step = 1;
-	zval proxy, params[3], *success = NULL;
-	time_t t;
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S|lz", &key, &step, &success) == FAILURE) {
-		return;
-	}
-
-	t = apc_time();
-	if (!apc_cache_exists(apc_user_cache, key, t)) {
-		if (success) {
-			ZVAL_DEREF(success);
-			zval_ptr_dtor(success);
-			ZVAL_FALSE(success);
-		}
-		RETURN_FALSE;
-        }
-	ZVAL_STR(&proxy, zend_string_init(ZEND_STRL("apcu_dec"), 0));
-	ZVAL_STR(&params[0], key);
-	ZVAL_LONG(&params[1], step);
-	if (success) {
-		ZVAL_COPY_VALUE(&params[2], success);
-	}
-	call_user_function(EG(function_table), NULL, &proxy, return_value, (success ? 3 : 2), params);
+	php_apcu_bc_inc_dec(INTERNAL_FUNCTION_PARAM_PASSTHRU, zend_string_init(ZEND_STRL("apcu_dec"), 0));
 }
 /* }}} */
-
 
 /* {{{ apc_functions[] */
 zend_function_entry apc_functions[] = {
