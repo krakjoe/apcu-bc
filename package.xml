@@ -19,7 +19,7 @@
  <date>2016-01-29</date>
  <time>07:25:00</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3dev</release>
   <api>5.1</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-- restore apc behavior, apc_inc / apc_dec fail when key doesnt exists
+-
  </notes>
  <contents>
   <dir name="/">
@@ -98,6 +98,21 @@
 - fix gh#10 - apc_clear_cache: parameter is optional
 - apc_cache_info: both parameters are optional
 - add dep on APCu extension
+   </notes>
+  </release>
+  <release>
+   <date>2016-01-29</date>
+   <version>
+    <release>1.0.2</release>
+    <api>5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- restore apc behavior, apc_inc / apc_dec fail when key doesnt exists
    </notes>
   </release>
  </changelog>
