@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
--
+- fix gh#14: apc_inc segfaults if APCu is disabled
  </notes>
  <contents>
   <dir name="/">
@@ -37,6 +37,7 @@
 	<file name="apc_cache_info.phpt" role="test" />
 	<file name="apc_clear_cache.phpt" role="test" />
 	<file name="apc_incdec.phpt" role="test" />
+	<file name="apc_inc_gh14.phpt" role="test" />
 	<file name="iterator_005_bc.phpt" role="test" />
 	<file name="iterator_008_bc.phpt" role="test" />
 	<file name="skipif.inc" role="test" />

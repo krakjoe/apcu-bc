@@ -125,21 +125,25 @@ static void php_apcu_bc_inc_dec(INTERNAL_FUNCTION_PARAMETERS, zend_string *funcn
 	zend_string *key;
 	zend_long step = 1;
 	zval proxy, params[3], *success = NULL;
-	time_t t;
 
 	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S|lz", &key, &step, &success) == FAILURE) {
 		return;
 	}
 
-	t = apc_time();
-	if (!apc_cache_exists(apc_user_cache, key, t)) {
+	/* Check if key exists to keep old APC behavior */
+	ZVAL_STR(&proxy, zend_string_init(ZEND_STRL("apcu_exists"), 0));
+	ZVAL_STR(&params[0], key);
+	call_user_function(EG(function_table), NULL, &proxy, return_value, 1, params);
+	if (Z_TYPE_INFO_P(return_value) != IS_TRUE) {
 		if (success) {
 			ZVAL_DEREF(success);
 			zval_ptr_dtor(success);
 			ZVAL_FALSE(success);
 		}
 		RETURN_FALSE;
-        }
+	}
+
+	/* inc/dec the key */
 	ZVAL_STR(&proxy, funcname);
 	ZVAL_STR(&params[0], key);
 	ZVAL_LONG(&params[1], step);
