@@ -34,4 +34,4 @@ tests/*.log
 tests/*.out
 tests/*.php
 tests/*.sh
-
+apcu_bc-*.tgz
