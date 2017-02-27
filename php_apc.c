@@ -172,18 +172,65 @@ PHP_FUNCTION(apc_dec) {
 zend_function_entry apc_functions[] = {
 	PHP_FE(apc_cache_info,         arginfo_apcu_bc_cache_info)
 	PHP_FE(apc_clear_cache,        arginfo_apcu_bc_clear_cache)
-	PHP_FALIAS(apc_store,    apcu_store,    arginfo_apcu_store)
-	PHP_FALIAS(apc_fetch,    apcu_fetch,    arginfo_apcu_fetch)
-	PHP_FALIAS(apc_enabled,  apcu_enabled,  arginfo_apcu_enabled)
-	PHP_FALIAS(apc_delete,   apcu_delete,   arginfo_apcu_delete)
-	PHP_FALIAS(apc_add,      apcu_add,      arginfo_apcu_store)
-	PHP_FALIAS(apc_sma_info, apcu_sma_info, arginfo_apcu_sma_info)
+	PHP_FALIAS(apc_store,    display_disabled_function, NULL)
+	PHP_FALIAS(apc_fetch,    display_disabled_function, NULL)
+	PHP_FALIAS(apc_enabled,  display_disabled_function, NULL)
+	PHP_FALIAS(apc_delete,   display_disabled_function, NULL)
+	PHP_FALIAS(apc_add,      display_disabled_function, NULL)
+	PHP_FALIAS(apc_sma_info, display_disabled_function, NULL)
 	PHP_FE(apc_inc,                         arginfo_apcu_inc)
 	PHP_FE(apc_dec,                         arginfo_apcu_inc)
-	PHP_FALIAS(apc_cas,      apcu_cas,      arginfo_apcu_cas)
-	PHP_FALIAS(apc_exists,   apcu_exists,   arginfo_apcu_exists)
+	PHP_FALIAS(apc_cas,      display_disabled_function, NULL)
+	PHP_FALIAS(apc_exists,   display_disabled_function, NULL)
 	PHP_FE_END
 };
+/* }}} */
+
+/* {{{ apcubc_latebind_faliases()
+ *
+ * Point apc_*() function aliases at apcu_*() functions.
+ * We do this during MINIT cycle rather than at module load
+ * to ensure that apcu_bc *can* load prior to apcu.
+ * Including these external references durectly in the
+ * zend_function_entry structure forces them to be bound
+ * upon dlopen() which is too early to inspect zend_module_dep
+ */
+static int apcubc_latebind_falias(const char *alias, const char *orig) {
+	zend_internal_function *falias = zend_hash_str_find_ptr(CG(function_table), alias, strlen(alias));
+	zend_internal_function *forig = zend_hash_str_find_ptr(CG(function_table), orig, strlen(orig));
+
+	if (!falias || (falias->type != ZEND_INTERNAL_FUNCTION) ||
+	    !forig  || (forig->type  != ZEND_INTERNAL_FUNCTION)) {
+		php_error(E_CORE_WARNING, "Failed aliasing %s to %s because one or both are not internal functions", orig, alias);
+		return FAILURE;
+	}
+
+	memcpy(&falias->arg_flags, &forig->arg_flags, sizeof(forig->arg_flags));
+	falias->fn_flags = forig->fn_flags;
+	falias->num_args = forig->num_args;
+	falias->required_num_args = forig->required_num_args;
+	falias->arg_info = forig->arg_info;
+	falias->handler = forig->handler;
+
+	return SUCCESS;
+}
+
+#define APCUBC_BIND_METHOD(name) \
+	if (FAILURE == apcubc_latebind_falias("apc_"#name, "apcu_"#name)) { \
+		return FAILURE; \
+	}
+static int apcubc_latebind_faliases() {
+	APCUBC_BIND_METHOD(store)
+	APCUBC_BIND_METHOD(fetch)
+	APCUBC_BIND_METHOD(enabled)
+	APCUBC_BIND_METHOD(delete)
+	APCUBC_BIND_METHOD(add)
+	APCUBC_BIND_METHOD(sma_info)
+	APCUBC_BIND_METHOD(cas)
+	APCUBC_BIND_METHOD(exists)
+	return SUCCESS;
+}
+#undef APCUBC_BIND_METHOD
 /* }}} */
 
 /* {{{ arginfo */
@@ -242,7 +289,7 @@ static PHP_MINIT_FUNCTION(apc)
 	if (apc_iterator_get_ce()) {
 		apc_bc_iterator_init(module_number);
 	}
-	return SUCCESS;
+	return apcubc_latebind_faliases();
 }
 
 static const zend_module_dep apc_deps[] = {
