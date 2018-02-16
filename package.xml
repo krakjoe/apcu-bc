@@ -16,20 +16,18 @@
   <email>remi@php.net</email>
   <active>yes</active>
  </lead>
- <date>2016-02-11</date>
- <time>16:30:00</time>
+ <date>2018-02-16</date>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>5.1</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-- fix gh#14: apc_inc segfaults if APCu is disabled
-- fix Windows build
+- promote as stable (no change)
  </notes>
  <contents>
   <dir name="/">
@@ -115,6 +113,22 @@
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
 - restore apc behavior, apc_inc / apc_dec fail when key doesnt exists
+   </notes>
+  </release>
+  <release>
+   <date>2016-02-11</date>
+   <version>
+    <release>1.0.3</release>
+    <api>5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fix gh#14: apc_inc segfaults if APCu is disabled
+- fix Windows build
    </notes>
   </release>
  </changelog>
