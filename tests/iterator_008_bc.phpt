@@ -1,7 +1,7 @@
 --TEST--
 APC compat: APCIterator general
 --SKIPIF--
-<?php require_once(dirname(__FILE__) . '/bc_skipif.inc'); ?>
+<?php require_once(dirname(__FILE__) . '/skipif.inc'); ?>
 --INI--
 apc.enabled=1
 apc.enable_cli=1
