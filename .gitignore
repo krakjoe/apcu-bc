@@ -12,12 +12,14 @@ build/
 config.guess
 config.h
 config.h.in
+config.h.in~
 config.log
 config.nice
 config.status
 config.sub
 configure
 configure.in
+configure.ac
 install-sh
 libtool
 ltmain.sh
@@ -27,6 +29,7 @@ mkinstalldirs
 modules/
 php_apc.lo
 run-tests.php
+run-tests.sh
 tmp-php.ini
 tests/*.diff
 tests/*.exp

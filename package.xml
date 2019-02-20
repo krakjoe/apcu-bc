@@ -16,9 +16,9 @@
   <email>remi@php.net</email>
   <active>yes</active>
  </lead>
- <date>2018-02-16</date>
+ <date>2019-02-20</date>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>5.1</api>
  </version>
  <stability>
@@ -27,7 +27,9 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-- promote as stable (no change)
+- fix skipif.inc path in test suite
+- remove APCU version from phpinfo
+- remove Build date from phpinfo
  </notes>
  <contents>
   <dir name="/">
@@ -129,6 +131,21 @@
    <notes>
 - fix gh#14: apc_inc segfaults if APCu is disabled
 - fix Windows build
+   </notes>
+  </release>
+  <release>
+   <date>2018-02-16</date>
+   <version>
+    <release>1.0.4</release>
+    <api>5.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- promote as stable (no change)
    </notes>
   </release>
  </changelog>
