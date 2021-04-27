@@ -2,10 +2,9 @@ language: php
 sudo: required
 
 php:
-  - 7.0
-  - 7.1
-  - nightly
-
+  - 7.2
+  - 7.3
+  - 7.4
 before_script:
   - git clone https://github.com/krakjoe/apcu --depth 1
   - cd apcu
